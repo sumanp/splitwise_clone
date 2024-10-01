@@ -1,5 +1,6 @@
 defmodule SplitwiseCloneWeb.Router do
   use SplitwiseCloneWeb, :router
+  use AshAuthentication.Phoenix.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -18,6 +19,16 @@ defmodule SplitwiseCloneWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    # Standard controller-backed routes
+    auth_routes AuthController, SplitwiseClone.Accounts.User, path: "/auth"
+    sign_out_route(AuthController)
+
+    # Prebuilt LiveViews for signing in, registration, resetting, etc.
+    # Leave out `register_path` and `reset_path` if you don't want to support
+    # user registration and/or password resets respectively.
+    sign_in_route(register_path: "/register", reset_path: "/reset", auth_routes_prefix: "/auth")
+    reset_route [auth_routes_prefix: "/auth"]
   end
 
   # Other scopes may use custom stacks.
