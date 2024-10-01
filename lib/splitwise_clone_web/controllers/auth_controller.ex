@@ -8,7 +8,6 @@ defmodule SplitwiseCloneWeb.AuthController do
     conn
     |> delete_session(:return_to)
     |> store_in_session(user)
-    # If your resource has a different name, update the assign name here (i.e :current_admin)
     |> assign(:current_user, user)
     |> redirect(to: return_to)
   end

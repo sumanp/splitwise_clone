@@ -9,10 +9,12 @@ defmodule SplitwiseCloneWeb.Router do
     plug :put_root_layout, html: {SplitwiseCloneWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :load_from_session
   end
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :load_from_bearer
   end
 
   scope "/", SplitwiseCloneWeb do
@@ -28,7 +30,7 @@ defmodule SplitwiseCloneWeb.Router do
     # Leave out `register_path` and `reset_path` if you don't want to support
     # user registration and/or password resets respectively.
     sign_in_route(register_path: "/register", reset_path: "/reset", auth_routes_prefix: "/auth")
-    reset_route [auth_routes_prefix: "/auth"]
+    reset_route auth_routes_prefix: "/auth"
   end
 
   # Other scopes may use custom stacks.

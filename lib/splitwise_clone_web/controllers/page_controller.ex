@@ -1,5 +1,7 @@
 defmodule SplitwiseCloneWeb.PageController do
   use SplitwiseCloneWeb, :controller
+  use AshAuthentication.Phoenix.Controller
+  alias SplitwiseClone.Accounts
 
   def home(conn, _params) do
     # The home page is often custom made,
