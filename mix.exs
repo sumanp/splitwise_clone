@@ -35,6 +35,8 @@ defmodule SplitwiseClone.MixProject do
       {:phoenix, "~> 1.7.14"},
       {:phoenix_ecto, "~> 4.5"},
       {:ash, "~> 3.4"},
+      {:ash_authentication, "~> 4.0"},
+      {:ash_authentication_phoenix, "~> 2.1"},
       {:ash_postgres, "~> 2.4"},
       {:ash_phoenix, "~> 2.1"},
       {:ecto_sql, "~> 3.10"},
