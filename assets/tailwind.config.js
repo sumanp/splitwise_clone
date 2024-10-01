@@ -9,7 +9,8 @@ module.exports = {
   content: [
     "./js/**/*.js",
     "../lib/splitwise_clone_web.ex",
-    "../lib/splitwise_clone_web/**/*.*ex"
+    "../lib/splitwise_clone_web/**/*.*ex",
+    "../deps/ash_authentication_phoenix/**/*.*ex",
   ],
   theme: {
     extend: {

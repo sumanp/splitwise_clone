@@ -10,6 +10,7 @@ defmodule SplitwiseClone.Application do
     children = [
       SplitwiseCloneWeb.Telemetry,
       SplitwiseClone.Repo,
+      {AshAuthentication.Supervisor, otp_app: :splitwise_clone},
       {DNSCluster, query: Application.get_env(:splitwise_clone, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: SplitwiseClone.PubSub},
       # Start the Finch HTTP client for sending emails
