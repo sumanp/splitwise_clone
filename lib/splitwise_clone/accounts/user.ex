@@ -6,6 +6,11 @@ defmodule SplitwiseClone.Accounts.User do
     # authorizers: [Ash.Policy.Authorizer],
     extensions: [AshAuthentication]
 
+  postgres do
+    table "users"
+    repo SplitwiseClone.Repo
+  end
+
   attributes do
     uuid_primary_key :id
 
@@ -31,19 +36,31 @@ defmodule SplitwiseClone.Accounts.User do
     end
   end
 
-  postgres do
-    table "users"
-    repo SplitwiseClone.Repo
-  end
-
   identities do
     identity :unique_email, [:email]
   end
 
-  # If using policies, add the following bypass:
-  # policies do
-  #   bypass AshAuthentication.Checks.AshAuthenticationInteraction do
-  #     authorize_if always()
-  #   end
-  # end
+  relationships do
+    has_many :payer_expenses, MyApp.Expenses.Expense, destination_attribute: :payer_id
+
+    has_many :user_expenses, MyApp.Expenses.UserExpense
+
+    many_to_many :expenses, MyApp.Expenses.Expense,
+      through: MyApp.Expenses.UserExpense,
+      source_attribute_on_join_resource: :user_id,
+      destination_attribute_on_join_resource: :expense_id
+  end
+
+  calculations do
+    calculate :total_amount_owed, :float, expr(sum(user_expenses.amount))
+
+    calculate :total_amount_you_owe, :float, expr(sum(user_expenses.amount))
+
+    calculate :total_balance, :float, expr(total_amount_owed - total_amount_you_owe)
+  end
+
+  actions do
+    read :read_user
+    update :update_user
+  end
 end
