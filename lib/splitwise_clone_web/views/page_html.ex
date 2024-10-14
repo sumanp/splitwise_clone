@@ -6,5 +6,5 @@ defmodule SplitwiseCloneWeb.PageHTML do
   """
   use SplitwiseCloneWeb, :html
 
-  embed_templates "page_html/*"
+  embed_templates "../templates/page_html/*"
 end
