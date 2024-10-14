@@ -20,10 +20,9 @@ defmodule SplitwiseCloneWeb.Router do
   scope "/", SplitwiseCloneWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    get "/", DashboardController, :index
     resources "/users", UserController
     resources "/expenses", ExpenseController
-    get "/dashboard", DashboardController, :index
 
     # Standard controller-backed routes
     auth_routes AuthController, SplitwiseClone.Accounts.User, path: "/auth"
