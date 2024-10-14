@@ -20,9 +20,7 @@ defmodule SplitwiseClone.Expenses.Expense do
     has_many :user_expenses, SplitwiseClone.Expenses.UserExpense
 
     many_to_many :users, SplitwiseClone.Accounts.User,
-      through: SplitwiseClone.Expenses.UserExpense,
-      source_attribute_on_join_resource: :expense_id,
-      destination_attribute_on_join_resource: :user_id
+      through: SplitwiseClone.Expenses.UserExpense
   end
 
   calculations do

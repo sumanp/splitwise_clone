@@ -67,7 +67,8 @@ import_config "#{config_env()}.exs"
 
 config :splitwise_clone,
   ash_domains: [
-    SplitwiseClone.Accounts
+    SplitwiseClone.Accounts,
+    SplitwiseClone.Expenses
   ]
 
 config :ash_authentication,

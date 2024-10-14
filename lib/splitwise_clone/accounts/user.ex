@@ -41,14 +41,11 @@ defmodule SplitwiseClone.Accounts.User do
   end
 
   relationships do
-    has_many :payer_expenses, MyApp.Expenses.Expense, destination_attribute: :payer_id
+    has_many :payer_expenses, SplitwiseClone.Expenses.Expense, destination_attribute: :payer_id
+    has_many :user_expenses, SplitwiseClone.Expenses.UserExpense, destination_attribute: :user_id
 
-    has_many :user_expenses, MyApp.Expenses.UserExpense
-
-    many_to_many :expenses, MyApp.Expenses.Expense,
-      through: MyApp.Expenses.UserExpense,
-      source_attribute_on_join_resource: :user_id,
-      destination_attribute_on_join_resource: :expense_id
+    many_to_many :expenses, SplitwiseClone.Expenses.Expense,
+      through: SplitwiseClone.Expenses.UserExpense
   end
 
   calculations do
