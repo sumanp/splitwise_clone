@@ -33,7 +33,6 @@ defmodule SplitwiseClone.Expenses.Expense do
     create :create_expense do
       argument :payer_id, :uuid
 
-      # After the action, you can run your custom functions like this:
       after_action(:include_payer_in_expenses)
       after_action(:calculate_user_expense_amounts)
     end
