@@ -9,8 +9,8 @@ defmodule SplitwiseCloneWeb.ExpenseController do
     render(conn, "index.html", expenses: expenses)
   end
 
-  def new(conn, _params) do
-    changeset = %Expense{}
+  def new(conn, params) do
+    changeset =Expense |> Ash.Changeset.for_create(:create_expense, params)
     render(conn, "new.html", changeset: changeset)
   end
 
