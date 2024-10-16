@@ -1,1 +1,12 @@
-<h1>Dashboard</h1>
+<h1 class="text-3xl">Dashboard</h1>
+<br>
+
+
+<b> You Owe </b>
+<%= unless Enum.empty?(@expense_owed) do %>
+  <%= for user_expense <- @expense_owed do %>
+    <p> <%= user_expense.user_id %> | you owe $<%= user_expense.amount %></p>
+  <% end %>
+<% else %>
+  <p>| Hurray! you don't owe anything </p>
+<% end %>

@@ -27,8 +27,10 @@ defmodule SplitwiseClone.Expenses.UserExpense do
   end
 
   actions do
-    create :create_user_expense
-    read :read_user_expense
-    update :update_user_expense
+    defaults [:read, :destroy, update: :*]
+
+    create :create do
+      accept [:amount, :expense_id, :user_id]
+    end
   end
 end

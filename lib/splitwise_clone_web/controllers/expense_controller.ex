@@ -1,16 +1,19 @@
 defmodule SplitwiseCloneWeb.ExpenseController do
   use SplitwiseCloneWeb, :controller
 
-  alias SplitwiseClone.Expenses.Expense, as: Expense
-  alias SplitwiseClone.Repo
+  alias SplitwiseClone.Expenses.Expense
+  require Ash.Query
+  alias Ash.Query
 
   def index(conn, _params) do
-    expenses = Repo.all(Expense)
+    expenses =
+      Expense |> Query.load([:grand_total, :users, :user_expenses, :payer]) |> Ash.read!()
+
     render(conn, "index.html", expenses: expenses)
   end
 
   def new(conn, params) do
-    changeset =Expense |> Ash.Changeset.for_create(:create_expense, params)
+    changeset = Expense |> Ash.Changeset.for_create(:create_expense, params)
     render(conn, "new.html", changeset: changeset)
   end
 

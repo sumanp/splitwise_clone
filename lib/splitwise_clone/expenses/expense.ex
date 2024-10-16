@@ -28,18 +28,14 @@ defmodule SplitwiseClone.Expenses.Expense do
   end
 
   actions do
+    defaults [:read, :destroy, update: :*]
+
     create :create_expense do
-      argument :payer_id, :uuid
+      accept [:description, :amount, :payer_id]
 
       after_action(:include_payer_in_expenses)
       after_action(:calculate_user_expense_amounts)
     end
-
-    read :read_expense
-
-    update :update_expense
-
-    destroy :destroy_expense
   end
 
   defp include_payer_in_expenses(changeset, _context) do
